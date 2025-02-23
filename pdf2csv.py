@@ -4,7 +4,6 @@ import sys
 import numpy as np
 import tabula
 import pandas as pd
-from pandas.core.interchange.dataframe_protocol import DataFrame
 
 from config import Config
 
@@ -66,31 +65,19 @@ def main():
 
     if not os.path.exists(csv_file):
         print(f"Creating file {csv_file}.")
+        with open(csv_file, 'w') as f:
+            pass
 
-    # Example using tabula-py to extract tables from a PDF
+
     tables = tabula.read_pdf(pdf_file, pages='all', stream=True)
     print(f"Tables found: {len(tables)}")
-    #csv_table = tabula.convert_into(pdf_file, csv_file, output_format="csv", pages='all')
 
     df = pd.DataFrame()
     for table in tables:
         df = pd.concat([df, format_bank_pdf(table)], ignore_index=True)
 
     df.to_csv(csv_file, index=False, decimal=',')
-
-    if False:
-        df = tables[0]
-        #tables[0].to_csv(csv_file, index=False)
-        print(f"columns: {tables[0].columns}")
-        # rename colums
-
-
-        df.to_csv(csv_file, index=False, decimal=',')
-        print(f"CSV saved as {csv_file}")
-        tables[1].to_csv("table_2.csv", index=False, decimal=',')
-        print(f"columns table 2: {tables[1].columns}")
-    else:
-        print("No tables found in the PDF.")
+    print(f"CSV file written to {csv_path}{csv_file}")
 
 
 if __name__ == "__main__":
