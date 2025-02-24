@@ -29,6 +29,7 @@ def format_bank_pdf(df: pd.DataFrame) -> pd.DataFrame:
     df = df.dropna(subset=['cost'], how='all')
     df = df[['date', 'cost', 'explanation']]
     # remove all dots
+    df['cost'] = df['cost'].astype(str)
     df['cost'] = df['cost'].str.replace('.', '', regex=False)
 
     # convert to float
