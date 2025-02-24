@@ -42,8 +42,6 @@ def format_bank_pdf(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 def format_credit_card_pdf(df: pd.DataFrame) -> pd.DataFrame:
-
-    print(f"Credit card pdf cols: {df.columns}")
     date_col = df.columns[0]
     date_col_booking = df.columns[1]
     explanation_col = df.columns[2]
@@ -127,7 +125,7 @@ def main():
             df = pd.concat([df, format_bank_pdf(table)], ignore_index=True)
 
     df.to_csv(csv_file, index=False, decimal=',')
-    print(f"git CSV file written to {csv_path}{csv_file}")
+    print(f"CSV file written to {csv_path}{csv_file}")
 
 
 if __name__ == "__main__":
