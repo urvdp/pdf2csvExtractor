@@ -83,8 +83,8 @@ def main():
         sys.exit(1)
     else:
         if not Config.dev:
-            pdf_file = sys.argv[1]
-            csv_file_path = sys.argv[2]
+            pdf_file = sys.argv[-2]
+            csv_file_path = sys.argv[-1]
         else:
             pdf_file = Config.pdf_path
             csv_file_path = Config.csv_path
@@ -111,7 +111,7 @@ def main():
 
     if is_credit_card:
         tables = tabula.read_pdf(pdf_file, pages='all',
-                                 area=[350, 30, 650, 580],
+                                 area=[350, 30, 800, 580],
                                  columns=[80, 120, 510, 580]) # custom values for credit card pdf
     else:
         tables = tabula.read_pdf(pdf_file, pages='all', stream=True)
